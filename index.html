@@ -9,7 +9,7 @@
         }
 
         /*  add bg colour to Health Bars  */
-        #hugerBar{
+        #hungerBar{
             background-color: #81F781; 
         }
         #funBar{
@@ -59,24 +59,73 @@
             // fires when the initial HTML document completely loaded and parsed
             document.addEventListener('DOMContentLoaded',function(){
             
-            // define pet's maximum health points
-            var hungerMax = 30
-            var funMax = 30
-            var hygieneMax = 30
-            var energyMax = 30
-            
-            // define pet's current health points
-            var hungerCur = hungerMax
-            var funCur = funMax
-            var hygieneCur = hygieneMax
-            var energyCur = energyMax
+                // define pet's maximum health points
+                var hungerMax = 30
+                var funMax = 30
+                var hygieneMax = 30
+                var energyMax = 30
+                
+                // define pet's current health points
+                var hungerCur = hungerMax
+                var funCur = funMax
+                var hygieneCur = hygieneMax
+                var energyCur = energyMax
 
-            // define interval how fast pet's hp will get low 
-            // (1000 = 1sec)
-            var hungerInt = 4000
-            var funInt = 3000
-            var hygieneInt = 10000
-            var energyCur = 6000
+                // define interval how fast pet's hp will get low 
+                // (1000 = 1sec)
+                var hungerInt = 4000
+                var funInt = 3000
+                var hygieneInt = 10000
+                var energyCur = 6000
+
+                // define how many hp points will be subtracted 
+                var points = 2
+                // define variable for hp bars width adjustment
+                var hpWidth = 4 
+
+                // query health bars to change hp 
+                var hungerBar = document.getElementById('hungerBar')
+                var funBar = document.getElementById('funBar')
+                var hygieneBar = document.getElementById('hygieneBar')
+                var energyBar = document.getElementById('energyBar')
+                // query style settings to change bars' bg colour
+                var styleHunger  = hungerBar.style
+                var styleFun  =  funBar.style
+                var styleHygiene =  hygieneBar.style
+                var styleEnergy  =  energyBar.style
+
+                // add colours for hp borders
+                var clrHunger =     "#81F781"
+                var clrFun =        "#81F781"
+                var clrHygiene =    "#81F781"
+                var clrEnergy =    "#81F781" 
+
+                // query buttons for click events
+                var btnFeed = document.getElementById('btnFeed')
+                var btnPlay = document.getElementById('btnPlay')
+                var btnBath = document.getElementById('btnBath')
+                var btnSleep = document.getElementById('btnSleep')
+
+                hpUpdate();
+
+                // function to update hp
+                function hpUpdate(){
+                    styleHunger.width = hungerCur * hpWidth + "px";	 
+		 	        styleFun.width = funCur * hpWidth + "px";	 
+		 	        styleHygiene.width = hygieneCur * hpWidth + "px";
+                    styleEnergy.width = energyCur * hpWidth + "px";
+                }
+
+                // decrease Hunger at set interval
+                setInterval(function(){
+                    loseHunger();
+                        
+                },hungerInt);
+
+                function loseHunger(){
+                    hungerCur = hungerCur - points;
+                }
+     
             });
         })();
     </script>
