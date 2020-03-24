@@ -1,0 +1,68 @@
+/*-----------------
+Fonts
+------------------*/
+@font-face {
+    font-family: 'Press Start';
+    src: url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap');
+}
+
+/*-----------------
+Layout
+------------------*/
+body{
+    background-image: url('images/sakura.png');
+    background-repeat: repeat;
+    font-family: 'Press Start' !important;
+}
+
+.wrapper{
+    max-width: 1080px;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+}        
+
+/*-----------------
+Game Elements
+------------------*/
+
+#ingame{
+    width: 1280px;
+    height: 910px;
+    background: url('images/bg.gif');
+    position: absolute;
+    border: 15px solid #fff;
+}
+
+#pet{
+    position: absolute;
+    top: 580px;
+    left: 560px;
+}
+
+#health-container{
+    
+}
+
+#hungerBar{
+    width: 130 px;
+    background-color: #81F781;
+    border: 1px solid #81F781; 
+}
+#funBar{
+    width: 130 px;
+    background-color: #81F781;
+    border: 1px solid #81F781; 
+}
+#hygieneBar{
+    width: 130 px;
+    background-color: #81F781;
+    border: 1px solid #81F781; 
+}
+#energyBar{
+    width: 130 px;
+    background-color: #81F781;
+    border: 1px solid #81F781; 
+}

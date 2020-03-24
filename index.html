@@ -1,19 +1,63 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Pet Simulator</title>
-</head>
-<body>
-    <div id="health points">
 
-    </div>
+    <head>
+        <title>Pet Simulator</title>
+        <link rel="stylesheet" href="style.css"></link>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script src="fns.js"></script>
+    </head>
 
-    <div id="pet sprite">
-        
-    </div>
+    <body>
 
-    <div id="interactive buttons">
-        
-    </div>
-</body>
+        <div class="wrapper">
+
+            <div id="ingame">
+
+                <!-- Health Bars here -->
+                <div id="health-container">
+                    
+                    <div id="hunger" class="bar">
+                        <div id="hungerTxt">hunger</div>
+                        <div id="hungerBar"></div>
+                    </div>
+                    
+                    <div id="fun" class="bar">
+                        <div id="funTxt">fun</div>
+                        <div id="funBar"></div>
+                    </div>
+
+                    <div id="hygiene" class="bar">
+                        <div id="hygieneTxt">hygiene</div>
+                        <div id="hygieneBar"></div>
+                    </div>
+
+                    <div id="energy" class="bar">
+                        <div id="energyTxt">energy</div>
+                        <div id="energyBar"></div>
+                    </div>
+                </div>
+
+                <!-- Pet Sprites here -->
+                <div id="pet">
+                    <img src="images/normal.png" alt="Bunny pet in normal mood">
+                </div><!-- #pet -->
+            
+            </div><!-- #ingame -->
+
+            <!--   Buttons here   -->
+            <div id="interactive buttons">
+                <div id="btnFeed">Feed</div>
+                <div id="btnPlay">Play</div>
+                <div id="btnBath">Bath</div>
+                <div id="btnSleep">Sleep</div>
+            </div>
+
+        </div><!-- .wrapper -->
+
+    </body>
+
 </html>
