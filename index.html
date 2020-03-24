@@ -4,39 +4,51 @@
     <title>Pet Simulator</title>
     <style>
         /*          main style            */
-        body{
-            text-align: center;
-        }
+        
 
-        /*  add bg colour to Health Bars  */
+        /*      Health Points style       */
         #hungerBar{
-            background-color: #81F781; 
+            position:relative;
+            background-color: #81F781;
+            border: 1px solid #81F781; 
         }
         #funBar{
             background-color: #81F781;
+            border: 1px solid #81F781; 
         }
         #hygieneBar{
             background-color: #81F781;
+            border: 1px solid #81F781; 
         }
         #energyBar{
             background-color: #81F781;
+            border: 1px solid #81F781; 
         }
+
     </style>
 </head>
 <body>
     <!-- Health Bars here -->
     <div id="health bars">
-        <div id="labels">
-            <div id="hunger">hunger</div>
-            <div id="fun">fun</div>
-            <div id="hygiene">hygiene</div>
-            <div id="energy">energy</div>
+        
+        <div id="hunger">
+            <div id="hungerTxt">hunger</div>
+            <div id="hungerBar"></div>
         </div>
-        <div id="bars">
-            <div id="hungerBar"   class=""></div>
-			<div id="funBar"      class=""></div>
-            <div id="hygieneBar"  class=""></div>
-            <div id="energyBar"   class=""></div>
+        
+        <div id="fun">
+            <div id="funTxt">fun</div>
+            <div id="funBar"></div>
+        </div>
+
+        <div id="hygiene">
+            <div id="hygieneTxt">hygiene</div>
+            <div id="hygieneBar"></div>
+        </div>
+
+        <div id="hunger">
+            <div id="energyTxt">energy</div>
+            <div id="energyBar"></div>
         </div>
     </div>
 
@@ -76,7 +88,7 @@
                 var hungerInt = 4000
                 var funInt = 3000
                 var hygieneInt = 10000
-                var energyCur = 6000
+                var energyInt = 6000
 
                 // define how many hp points will be subtracted 
                 var points = 2
@@ -95,10 +107,10 @@
                 var styleEnergy  =  energyBar.style
 
                 // add colours for hp borders
-                var clrHunger =     "#81F781"
-                var clrFun =        "#81F781"
-                var clrHygiene =    "#81F781"
-                var clrEnergy =    "#81F781" 
+                var clrHunger = "#81F781"
+                var clrFun = "#81F781"
+                var clrHygiene = "#81F781"
+                var clrEnergy = "#81F781" 
 
                 // query buttons for click events
                 var btnFeed = document.getElementById('btnFeed')
