@@ -1,0 +1,93 @@
+/*-----------------
+Fonts
+------------------*/
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap');
+
+/*-----------------
+Layout
+------------------*/
+body{
+    background-image: url('images/sakura.png');
+    background-repeat: repeat;
+    font-family: 'Press Start 2P' !important;
+}
+
+.wrapper{
+    max-width: 1080px;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+}        
+
+/*-----------------
+Game Elements
+------------------*/
+
+#ingame{
+    width: 1280px;
+    height: 910px;
+    background: url('images/bg.gif');
+    position: absolute;
+    border: 15px solid #fff;
+    margin: 20px 0px;
+}
+
+#pet{
+    position: absolute;
+    top: 580px;
+    left: 560px;
+}
+
+.container{
+    display: flex;
+    padding: 30px;
+    justify-content: space-around;
+    max-width: none !important;
+}
+
+#bars-container{
+    
+}
+
+.bar-container{
+    min-width: 200px;
+    padding: 20px;
+    background: #fff;
+}
+
+.bar{
+    border: 5px solid #81F781; 
+}
+
+#btn-container{
+    position: absolute;
+    bottom: 0;
+}
+
+.btn{
+    padding: 10px 20px !important;
+    border-radius: none !important;
+    border: 10px solid #fff !important;
+}
+
+#hunger{
+    border: 10px solid #218838;
+    color: #218838;
+}
+
+#fun{
+    border: 10px solid #007bff;
+    color: #007bff;
+}
+
+#hygiene{
+    border: 10px solid #138496;
+    color: #138496;
+}
+
+#energy{
+    border: 10px solid #e0a800;
+    color: #e0a800;
+}
