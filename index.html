@@ -2,8 +2,29 @@
 <html>
 <head>
     <title>Pet Simulator</title>
+    <style>
+        /*          main style            */
+        body{
+            text-align: center;
+        }
+
+        /*  add bg colour to Health Bars  */
+        #hugerBar{
+            background-color: #81F781; 
+        }
+        #funBar{
+            background-color: #81F781;
+        }
+        #hygieneBar{
+            background-color: #81F781;
+        }
+        #energyBar{
+            background-color: #81F781;
+        }
+    </style>
 </head>
 <body>
+    <!-- Health Bars here -->
     <div id="health bars">
         <div id="labels">
             <div id="hunger">hunger</div>
@@ -19,15 +40,45 @@
         </div>
     </div>
 
+    <!-- Pet Sprites here -->
     <div id="pet sprite">
-        
+        <img src="images/normal.png" alt="Bunny pet in normal mood">
     </div>
 
+    <!--   Buttons here   -->
     <div id="interactive buttons">
         <div id="btnFeed"  class="">Feed</div>
         <div id="btnPlay"  class="">Play</div>
         <div id="btnBath"  class="">Bath</div>
         <div id="btnSleep" class="">Sleep</div>
     </div>
+
+    <!-- JavaScript here -->
+    <script>
+        (function() { "use strict"; 
+            // fires when the initial HTML document completely loaded and parsed
+            document.addEventListener('DOMContentLoaded',function(){
+            
+            // define pet's maximum health points
+            var hungerMax = 30
+            var funMax = 30
+            var hygieneMax = 30
+            var energyMax = 30
+            
+            // define pet's current health points
+            var hungerCur = hungerMax
+            var funCur = funMax
+            var hygieneCur = hygieneMax
+            var energyCur = energyMax
+
+            // define interval how fast pet's hp will get low 
+            // (1000 = 1sec)
+            var hungerInt = 4000
+            var funInt = 3000
+            var hygieneInt = 10000
+            var energyCur = 6000
+            });
+        })();
+    </script>
 </body>
 </html>
