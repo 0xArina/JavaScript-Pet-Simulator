@@ -8,19 +8,22 @@
 
         /*      Health Points style       */
         #hungerBar{
-            position:relative;
+            width: 130 px;
             background-color: #81F781;
             border: 1px solid #81F781; 
         }
         #funBar{
+            width: 130 px;
             background-color: #81F781;
             border: 1px solid #81F781; 
         }
         #hygieneBar{
+            width: 130 px;
             background-color: #81F781;
             border: 1px solid #81F781; 
         }
         #energyBar{
+            width: 130 px;
             background-color: #81F781;
             border: 1px solid #81F781; 
         }
@@ -46,7 +49,7 @@
             <div id="hygieneBar"></div>
         </div>
 
-        <div id="hunger">
+        <div id="energy">
             <div id="energyTxt">energy</div>
             <div id="energyBar"></div>
         </div>
@@ -59,10 +62,10 @@
 
     <!--   Buttons here   -->
     <div id="interactive buttons">
-        <div id="btnFeed"  class="">Feed</div>
-        <div id="btnPlay"  class="">Play</div>
-        <div id="btnBath"  class="">Bath</div>
-        <div id="btnSleep" class="">Sleep</div>
+        <div id="btnFeed">Feed</div>
+        <div id="btnPlay">Play</div>
+        <div id="btnBath">Bath</div>
+        <div id="btnSleep">Sleep</div>
     </div>
 
     <!-- JavaScript here -->
@@ -82,12 +85,12 @@
                 var funCur = funMax
                 var hygieneCur = hygieneMax
                 var energyCur = energyMax
-
+                
                 // define interval how fast pet's hp will get low 
                 // (1000 = 1sec)
                 var hungerInt = 4000
                 var funInt = 3000
-                var hygieneInt = 10000
+                var hygieneInt = 9000
                 var energyInt = 6000
 
                 // define how many hp points will be subtracted 
@@ -100,13 +103,13 @@
                 var funBar = document.getElementById('funBar')
                 var hygieneBar = document.getElementById('hygieneBar')
                 var energyBar = document.getElementById('energyBar')
-                // query style settings to change bars' bg colour
+                // query style attribute to change bars' bg colour
                 var styleHunger  = hungerBar.style
                 var styleFun  =  funBar.style
                 var styleHygiene =  hygieneBar.style
                 var styleEnergy  =  energyBar.style
 
-                // add colours for hp borders
+                // define colour variables for hp borders
                 var clrHunger = "#81F781"
                 var clrFun = "#81F781"
                 var clrHygiene = "#81F781"
@@ -118,8 +121,6 @@
                 var btnBath = document.getElementById('btnBath')
                 var btnSleep = document.getElementById('btnSleep')
 
-                hpUpdate();
-
                 // function to update hp
                 function hpUpdate(){
                     styleHunger.width = hungerCur * hpWidth + "px";	 
@@ -128,16 +129,49 @@
                     styleEnergy.width = energyCur * hpWidth + "px";
                 }
 
+                hpUpdate();
+                
                 // decrease Hunger at set interval
                 setInterval(function(){
                     loseHunger();
-                        
+                    
                 },hungerInt);
 
                 function loseHunger(){
                     hungerCur = hungerCur - points;
+                    hpUpdate();
                 }
-     
+                
+                // decrease Fun at set interval
+                setInterval(function(){
+                    loseFun();
+                },funInt);
+                
+                function loseFun(){
+                    funCur = funCur - points;
+                    hpUpdate();
+                }
+
+                // decrease Hygiene at set interval
+                setInterval(function(){
+                    loseHygiene();
+                },hygieneInt);
+                
+                function loseHygiene(){
+                    hygieneCur = hygieneCur - points;
+                    hpUpdate();
+                }
+
+                // decrease Energy at set interval
+                setInterval(function(){
+                    loseEnergy();
+                },energyInt);
+                
+                function energyHunger(){
+                    energyCur = energyCur - points;
+                    hpUpdate();
+                }
+                
             });
         })();
     </script>
