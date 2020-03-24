@@ -1,10 +1,7 @@
 /*-----------------
 Fonts
 ------------------*/
-@font-face {
-    font-family: 'Press Start';
-    src: url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap');
-}
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap');
 
 /*-----------------
 Layout
@@ -12,7 +9,7 @@ Layout
 body{
     background-image: url('images/sakura.png');
     background-repeat: repeat;
-    font-family: 'Press Start' !important;
+    font-family: 'Press Start 2P' !important;
 }
 
 .wrapper{
@@ -34,6 +31,7 @@ Game Elements
     background: url('images/bg.gif');
     position: absolute;
     border: 15px solid #fff;
+    margin: 20px 0px;
 }
 
 #pet{
@@ -42,27 +40,54 @@ Game Elements
     left: 560px;
 }
 
-#health-container{
+.container{
+    display: flex;
+    padding: 30px;
+    justify-content: space-around;
+    max-width: none !important;
+}
+
+#bars-container{
     
 }
 
-#hungerBar{
-    width: 130 px;
-    background-color: #81F781;
-    border: 1px solid #81F781; 
+.bar-container{
+    min-width: 200px;
+    padding: 20px;
+    background: #fff;
 }
-#funBar{
-    width: 130 px;
-    background-color: #81F781;
-    border: 1px solid #81F781; 
+
+.bar{
+    border: 5px solid #81F781; 
 }
-#hygieneBar{
-    width: 130 px;
-    background-color: #81F781;
-    border: 1px solid #81F781; 
+
+#btn-container{
+    position: absolute;
+    bottom: 0;
 }
-#energyBar{
-    width: 130 px;
-    background-color: #81F781;
-    border: 1px solid #81F781; 
+
+.btn{
+    padding: 10px 20px !important;
+    border-radius: none !important;
+    border: 10px solid #fff !important;
+}
+
+#hunger{
+    border: 10px solid #218838;
+    color: #218838;
+}
+
+#fun{
+    border: 10px solid #007bff;
+    color: #007bff;
+}
+
+#hygiene{
+    border: 10px solid #138496;
+    color: #138496;
+}
+
+#energy{
+    border: 10px solid #e0a800;
+    color: #e0a800;
 }
