@@ -130,7 +130,7 @@
                 }
 
                 hpUpdate();
-                
+
                 // decrease Hunger at set interval
                 setInterval(function(){
                     loseHunger();
@@ -167,7 +167,7 @@
                     loseEnergy();
                 },energyInt);
                 
-                function energyHunger(){
+                function loseEnergy(){
                     energyCur = energyCur - points;
                     hpUpdate();
                 }
