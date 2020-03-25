@@ -54,7 +54,7 @@ function ingame(){
         },
         int: { // define interval how fast pet's hp will get low (1000 = 1sec)
             hunger: 4000,
-            fun: 300,
+            fun: 3000,
             hygiene: 9000,
             energy: 6000
         },
@@ -278,12 +278,12 @@ function petChange(){
         pet.el.style.animationName = "none";
     }
     if(pet.curVal.fun <= 0){
-        setInterval(function(){
+        /*setInterval(function(){
             pet.curVal.hygiene -= pet.points.hygiene;
             extraInterval++
             updateBar('hygiene');
         }, 500);
-        console.log(pet.int.hygiene);
+        console.log(pet.int.hygiene);*/
     }
     if(pet.curVal.hygiene <= 0){
         lose("Bunny got sick");
@@ -291,11 +291,11 @@ function petChange(){
         pet.el.style.animationName = "none";
     }
     if(pet.curVal.energy <= 0){
-        setInterval(function(){
+        /*setInterval(function(){
             pet.curVal.hygiene -= pet.points.hygiene;
             extraInterval++
             updateBar('hygiene');
-        }, 500);
+        }, 500);*/
     } 
 }
 
