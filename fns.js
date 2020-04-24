@@ -1,3 +1,8 @@
+// background music function
+function playMusic() {
+    var audio = new Audio('HappyDreamsByDavidFesliyan.mp3');
+    audio.play();
+}
 // define pet's maximum health points
 let maxValue = 30;
 let pet;
