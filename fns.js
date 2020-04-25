@@ -61,25 +61,25 @@ function ingame(){
             hygiene: 9000,
             energy: 6000
         },
-        points: {
+        points: { //define how many points the pet's hp decreases by
             hunger: 2,
             fun: 2,
             hygiene: 2,
             energy: 2
         },
-        barEl: {
+        barEl: { //DOM bar elements
             hunger: document.createElement("div"),
             fun: document.createElement("div"),
             hygiene: document.createElement("div"),
             energy: document.createElement("div"),
         },
-        btnEl: {
+        btnEl: { //DOM button elements
             hunger: document.createElement("button"),
             fun: document.createElement("button"),
             hygiene: document.createElement("button"),
             energy: document.createElement("button"),
         },
-        audio: {
+        audio: {//sound effects
             feed: new Audio('sound/feed.mp3'),
             play: new Audio('sound/play.wav'),
             bath: new Audio('sound/bath.wav'),
@@ -199,14 +199,14 @@ function updateVal() {
 function updateBar(key){
     let bar = document.getElementById(key + 'Bar');
     
-    bar.style.width = pet.curVal[key] * hpWidth + "px";
-    if(pet.curVal[key] <= 16 && pet.curVal[key] > 6){
+    bar.style.width = pet.curVal[key] * hpWidth + "px"; //bar width is proportional to gp value
+    if(pet.curVal[key] <= 16 && pet.curVal[key] > 6){ //Change to yellow when less than 16
         bar.style.background = "rgb(216, 178, 52)"
         bar.style.borderColor = "rgb(214, 156, 47)"; 
-    } else if (pet.curVal[key] <= 6){
+    } else if (pet.curVal[key] <= 6){ //Change to red when less than 6
         bar.style.background = "rgb(240, 50, 50)"
         bar.style.borderColor = "rgb(131, 24, 24)";
-    } else {
+    } else { //Green otherwise
         bar.style.background = "#81F781"
         bar.style.borderColor = "rgb(90, 184, 90)";
     }
@@ -214,13 +214,13 @@ function updateBar(key){
 
 // function to add listeners to buttons
 function btnListener(){
-    for (let [key, value] of Object.entries(pet.btnEl)) {
+    for (let [key, value] of Object.entries(pet.btnEl)) {//add click event listener to each button element
         value.addEventListener('click', function(){
-            if(pet.curVal[key] <= maxValue){
+            if(pet.curVal[key] <= maxValue){ //Display bubble and increase value if less than max value
                 pet.curVal[key] += 6;
                 bubble(key);
             }
-            pet.btnEl[key].setAttribute('disabled', '');
+            pet.btnEl[key].setAttribute('disabled', ''); //temporarily disable button
                 setTimeout(function(){
                     pet.btnEl[key].removeAttribute('disabled');
                 }, pet.int[key]/2);
@@ -229,7 +229,7 @@ function btnListener(){
     }
 }
 
-//bubble animation
+//bubble animation. Also seondary value changes.
 function bubble(key){
     let bubble = document.createElement('img')
     bubble.setAttribute('class', 'sprite bubble');
@@ -273,33 +273,33 @@ let extraInterval = [];
 
 //Visually display changes to pet
 function petChange(){
-    if(pet.curVal.hunger <= 16){
+    if(pet.curVal.hunger <= 16){//Pet is hungry
         pet.el.setAttribute('src', 'images/lowHunger.png');
     }
-    else if(pet.curVal.fun <= 16){
+    else if(pet.curVal.fun <= 16){//Pet is bored
         pet.el.setAttribute('src', 'images/lowFun.png');
     }
-    else if(pet.curVal.hygiene <= 16){
+    else if(pet.curVal.hygiene <= 16){//Pet is dirty
         pet.el.setAttribute('src', 'images/lowHygiene.png');
     }
-    else if(pet.curVal.energy <= 16){
+    else if(pet.curVal.energy <= 16){//Pet is tired
         pet.el.setAttribute('src', 'images/lowEnergy.png');
         if(pet.curVal.energy <= 6){
             pet.el.style.animationDuration = "4s";
         } else {
             pet.el.style.animationDuration = "3s";
         }
-    } else {
+    } else {//Pet is healthy
         pet.el.setAttribute('src', 'images/normal.png');
         pet.el.style.animationDuration = "2s";
         pet.el.style.animationName = "sway";
     }
-    if(pet.curVal.hunger <= 0){
+    if(pet.curVal.hunger <= 0){//Pet starved
         lose("Bunny starved");
         pet.el.setAttribute('src', 'images/dead.png');
         pet.el.style.animationName = "none";
     }
-    if(pet.curVal.fun <= 0){
+    if(pet.curVal.fun <= 0){//Pet is depressed
         
         //Notify player of depression
         let notifyDepress = document.getElementById('depress');
@@ -310,23 +310,23 @@ function petChange(){
             notifyEl.appendChild(notifytext);
         }
 
-        extraInterval[0] = setInterval(function(){
+        extraInterval[0] = setInterval(function(){//Add secondary effects (accelerated hygiene deterioration)
             pet.curVal.hygiene -= pet.points.hygiene;
             updateBar('hygiene');
         }, 1500);
     } else {
-        if(extraInterval[0] != null | extraInterval[0] != undefined){
+        if(extraInterval[0] != null | extraInterval[0] != undefined){//Remove secondary effects (accelerated hygiene deterioration)
             clearInterval(extraInterval[0]);
             extraInterval[0] = null;
             emptyElement(notifyEl);
         }
     }
-    if(pet.curVal.hygiene <= 0){
+    if(pet.curVal.hygiene <= 0){//Pet sick
         lose("Bunny got sick");
         pet.el.setAttribute('src', 'images/dead.png');
         pet.el.style.animationName = "none";
     }
-    if(pet.curVal.energy <= 0){
+    if(pet.curVal.energy <= 0){//Pet exhausted
 
         //Notify player of exhaustion
         let notifyExhausted = document.getElementById('exhausted');
@@ -337,13 +337,13 @@ function petChange(){
             notifyEl.appendChild(notifytext);
         }
 
-        extraInterval[1] = setInterval(function(){
+        extraInterval[1] = setInterval(function(){//Add secondary effects (accelerated hygiene deterioration)
             pet.curVal.hygiene -= pet.points.hygiene;
             extraInterval++
             updateBar('hygiene');
         }, 1500);
     } else {
-        if(extraInterval[1] != null | extraInterval[1] != undefined){
+        if(extraInterval[1] != null | extraInterval[1] != undefined){//Remove secondary effects (accelerated hygiene deterioration)
             clearInterval(extraInterval[1]);
             extraInterval[1] = null;
             emptyElement(notifyEl);
@@ -365,6 +365,7 @@ function lose(loseString){
     emptyElement(barsEl);
     emptyElement(btnEl);
 
+    //create lose text element
     let losetext = document.createElement('h1');
     losetext.appendChild(document.createTextNode(loseString));
     let loseBtn = document.createElement('button');
@@ -372,10 +373,12 @@ function lose(loseString){
     loseBtn.setAttribute('id', 'start');
     loseBtn.setAttribute('class', 'btn btn-success');
 
+    //Add click event listener
     loseBtn.addEventListener('click', function(){
         ingame();
     })
 
+    //append lose text elements
     notifyEl.appendChild(losetext);
     notifyEl.appendChild(loseBtn);
 }
