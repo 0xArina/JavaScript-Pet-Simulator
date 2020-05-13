@@ -1,8 +1,3 @@
-// background music function
-function playMusic() {
-    var audio = new Audio('HappyDreamsByDavidFesliyan.mp3');
-    audio.play();
-}
 // define pet's maximum health points
 let maxValue = 30;
 let pet;
@@ -18,6 +13,9 @@ let ingameEl;
 let notifyEl;
 let barsEl;
 let btnEl;
+
+//Declare background music
+var bg;
 
 // fires when the initial HTML document completely loaded and parsed
 document.addEventListener('DOMContentLoaded',function(){
@@ -63,28 +61,42 @@ function ingame(){
             hygiene: 9000,
             energy: 6000
         },
-        points: {
+        points: { //define how many points the pet's hp decreases by
             hunger: 2,
             fun: 2,
             hygiene: 2,
             energy: 2
         },
-        barEl: {
+        barEl: { //DOM bar elements
             hunger: document.createElement("div"),
             fun: document.createElement("div"),
             hygiene: document.createElement("div"),
             energy: document.createElement("div"),
         },
-        btnEl: {
+        btnEl: { //DOM button elements
             hunger: document.createElement("button"),
             fun: document.createElement("button"),
             hygiene: document.createElement("button"),
             energy: document.createElement("button"),
+        },
+        audio: {//sound effects
+            feed: new Audio('sound/feed.mp3'),
+            play: new Audio('sound/play.wav'),
+            bath: new Audio('sound/bath.wav'),
+            sleep: new Audio('sound/sleep.wav'),
         }
     }
 
     //Empty notification area
     emptyElement(notifyEl);
+
+    //play music
+    playMusic();
+
+    //set and animate sprite
+    pet.el.setAttribute('src', 'images/normal.png');
+    pet.el.style.animationDuration = "2s";
+    pet.el.style.animationName = "sway";
 
     //Create elements
 
@@ -187,14 +199,14 @@ function updateVal() {
 function updateBar(key){
     let bar = document.getElementById(key + 'Bar');
     
-    bar.style.width = pet.curVal[key] * hpWidth + "px";
-    if(pet.curVal[key] <= 16 && pet.curVal[key] > 6){
+    bar.style.width = pet.curVal[key] * hpWidth + "px"; //bar width is proportional to gp value
+    if(pet.curVal[key] <= 16 && pet.curVal[key] > 6){ //Change to yellow when less than 16
         bar.style.background = "rgb(216, 178, 52)"
         bar.style.borderColor = "rgb(214, 156, 47)"; 
-    } else if (pet.curVal[key] <= 6){
+    } else if (pet.curVal[key] <= 6){ //Change to red when less than 6
         bar.style.background = "rgb(240, 50, 50)"
         bar.style.borderColor = "rgb(131, 24, 24)";
-    } else {
+    } else { //Green otherwise
         bar.style.background = "#81F781"
         bar.style.borderColor = "rgb(90, 184, 90)";
     }
@@ -202,13 +214,13 @@ function updateBar(key){
 
 // function to add listeners to buttons
 function btnListener(){
-    for (let [key, value] of Object.entries(pet.btnEl)) {
+    for (let [key, value] of Object.entries(pet.btnEl)) {//add click event listener to each button element
         value.addEventListener('click', function(){
-            if(pet.curVal[key] <= maxValue){
+            if(pet.curVal[key] <= maxValue){ //Display bubble and increase value if less than max value
                 pet.curVal[key] += 6;
                 bubble(key);
             }
-            pet.btnEl[key].setAttribute('disabled', '');
+            pet.btnEl[key].setAttribute('disabled', ''); //temporarily disable button
                 setTimeout(function(){
                     pet.btnEl[key].removeAttribute('disabled');
                 }, pet.int[key]/2);
@@ -217,18 +229,20 @@ function btnListener(){
     }
 }
 
-//bubble animation
+//bubble animation. Also seondary value changes.
 function bubble(key){
     let bubble = document.createElement('img')
     bubble.setAttribute('class', 'sprite bubble');
     switch(key){
         case 'hunger':
             bubble.setAttribute('src', 'images/carrot.png');
+            pet.audio.feed.play();
             if(pet.curVal.hygiene >= 4){pet.curVal.hygiene -= 4;}
             updateBar('hygiene');
             break;
         case 'fun':
             bubble.setAttribute('src', 'images/happy.png');
+            pet.audio.play.play();
             if(pet.curVal.hunger >= 4){pet.curVal.hunger -= 4;}
             updateBar('hunger');
             if(pet.curVal.hygiene >= 2){pet.curVal.hygiene -= 2;}
@@ -238,11 +252,13 @@ function bubble(key){
             break;
         case 'hygiene':
             bubble.setAttribute('src', 'images/soap.png');
+            pet.audio.bath.play();
             if(pet.curVal.fun >= 8){pet.curVal.fun -= 8;}
             updateBar('fun');
             break;
         case 'energy':
             bubble.setAttribute('src', 'images/sleep.png');
+            pet.audio.sleep.play();
             break;
     }
     ingameEl.appendChild(bubble);
@@ -252,56 +268,87 @@ function bubble(key){
     }, 1000);
 }
 
-let extraInterval = 0;
+//declare interval array
+let extraInterval = [];
 
 //Visually display changes to pet
 function petChange(){
-    if(pet.curVal.hunger <= 16){
+    if(pet.curVal.hunger <= 16){//Pet is hungry
         pet.el.setAttribute('src', 'images/lowHunger.png');
     }
-    else if(pet.curVal.fun <= 16){
+    else if(pet.curVal.fun <= 16){//Pet is bored
         pet.el.setAttribute('src', 'images/lowFun.png');
     }
-    else if(pet.curVal.hygiene <= 16){
+    else if(pet.curVal.hygiene <= 16){//Pet is dirty
         pet.el.setAttribute('src', 'images/lowHygiene.png');
     }
-    else if(pet.curVal.energy <= 16){
+    else if(pet.curVal.energy <= 16){//Pet is tired
         pet.el.setAttribute('src', 'images/lowEnergy.png');
         if(pet.curVal.energy <= 6){
             pet.el.style.animationDuration = "4s";
         } else {
             pet.el.style.animationDuration = "3s";
         }
-    } else {
+    } else {//Pet is healthy
         pet.el.setAttribute('src', 'images/normal.png');
         pet.el.style.animationDuration = "2s";
         pet.el.style.animationName = "sway";
     }
-    if(pet.curVal.hunger <= 0){
-        lose("Bunny has succumbed to hunger");
+    if(pet.curVal.hunger <= 0){//Pet starved
+        lose("Bunny starved");
         pet.el.setAttribute('src', 'images/dead.png');
         pet.el.style.animationName = "none";
     }
-    if(pet.curVal.fun <= 0){
-        /*setInterval(function(){
+    if(pet.curVal.fun <= 0){//Pet is depressed
+        
+        //Notify player of depression
+        let notifyDepress = document.getElementById('depress');
+        if(notifyEl.contains(notifyDepress) == false){
+            let notifytext = document.createElement('h1');
+            notifytext.setAttribute('id', 'depress')
+            notifytext.appendChild(document.createTextNode("Bunny is depressed"));
+            notifyEl.appendChild(notifytext);
+        }
+
+        extraInterval[0] = setInterval(function(){//Add secondary effects (accelerated hygiene deterioration)
             pet.curVal.hygiene -= pet.points.hygiene;
-            extraInterval++
             updateBar('hygiene');
-        }, 500);
-        console.log(pet.int.hygiene);*/
+        }, 1500);
+    } else {
+        if(extraInterval[0] != null | extraInterval[0] != undefined){//Remove secondary effects (accelerated hygiene deterioration)
+            clearInterval(extraInterval[0]);
+            extraInterval[0] = null;
+            emptyElement(notifyEl);
+        }
     }
-    if(pet.curVal.hygiene <= 0){
+    if(pet.curVal.hygiene <= 0){//Pet sick
         lose("Bunny got sick");
         pet.el.setAttribute('src', 'images/dead.png');
         pet.el.style.animationName = "none";
     }
-    if(pet.curVal.energy <= 0){
-        /*setInterval(function(){
+    if(pet.curVal.energy <= 0){//Pet exhausted
+
+        //Notify player of exhaustion
+        let notifyExhausted = document.getElementById('exhausted');
+        if(notifyEl.contains(notifyExhausted) == false){
+            let notifytext = document.createElement('h1');
+            notifytext.setAttribute('id', 'exhausted')
+            notifytext.appendChild(document.createTextNode("Bunny is exhausted"));
+            notifyEl.appendChild(notifytext);
+        }
+
+        extraInterval[1] = setInterval(function(){//Add secondary effects (accelerated hygiene deterioration)
             pet.curVal.hygiene -= pet.points.hygiene;
             extraInterval++
             updateBar('hygiene');
-        }, 500);*/
-    } 
+        }, 1500);
+    } else {
+        if(extraInterval[1] != null | extraInterval[1] != undefined){//Remove secondary effects (accelerated hygiene deterioration)
+            clearInterval(extraInterval[1]);
+            extraInterval[1] = null;
+            emptyElement(notifyEl);
+        }
+    }
 }
 
 //function to call lose screen on losing condition
@@ -310,9 +357,15 @@ function lose(loseString){
         window.clearInterval(i);
     }
 
+    //pause audio
+    bg.pause();
+
+    //empty elements
+    emptyElement(notifyEl);
     emptyElement(barsEl);
     emptyElement(btnEl);
 
+    //create lose text element
     let losetext = document.createElement('h1');
     losetext.appendChild(document.createTextNode(loseString));
     let loseBtn = document.createElement('button');
@@ -320,10 +373,21 @@ function lose(loseString){
     loseBtn.setAttribute('id', 'start');
     loseBtn.setAttribute('class', 'btn btn-success');
 
+    //Add click event listener
     loseBtn.addEventListener('click', function(){
         ingame();
     })
 
+    //append lose text elements
     notifyEl.appendChild(losetext);
     notifyEl.appendChild(loseBtn);
+}
+
+// background music function
+function playMusic() {
+    if(bg == null){
+        bg = new Audio('sound/bg.mp3');
+    }
+    bg.volume = 0.5;
+    bg.play();
 }
