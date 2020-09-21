@@ -1,2 +1,4 @@
 # JavaScript-Pet-Simulator
-A virtual pet in JavaScript
+ 
+![](1.png)
+![](2.png)
